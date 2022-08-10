@@ -90,6 +90,9 @@ public class sendEmailServicesImpl implements sendEmailServices {
                 //Delete dataTemp
                 Delete(dataEmail.getAttachBytes());
             }catch (Exception e){
+                responseObj.setRespHttpCode("400");
+                responseObj.setRespHttpMessage(e.getMessage());
+                StatusResponse = HttpStatus.BAD_REQUEST;
                 motifLog.insertLogMotif("","","Send Email","Failed","Failed Send email : " + e.getMessage(),dataEmail.getRequestBy());
             }
         }
