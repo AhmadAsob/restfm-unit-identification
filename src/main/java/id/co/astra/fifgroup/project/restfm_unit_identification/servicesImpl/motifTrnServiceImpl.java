@@ -1,6 +1,7 @@
 package id.co.astra.fifgroup.project.restfm_unit_identification.servicesImpl;
 
 import id.co.astra.fifgroup.project.restfm_unit_identification.entity.remTrnWsMotif;
+import id.co.astra.fifgroup.project.restfm_unit_identification.repository.RemTrnWsMotifRepository;
 import id.co.astra.fifgroup.project.restfm_unit_identification.repository.motif_TrnRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ import java.util.UUID;
 public class motifTrnServiceImpl {
 
     @Autowired
-    private motif_TrnRepo motif_trnRepo;
+    private RemTrnWsMotifRepository motif_trnRepo;
 
     public void insertTrnMotif(String contractNo, String requestNo, String skpcNo, String requestType, String sendStat, String messageStat,String pathFolder, String createBy, String requestBy){
         remTrnWsMotif trnWsMotif = new remTrnWsMotif();
