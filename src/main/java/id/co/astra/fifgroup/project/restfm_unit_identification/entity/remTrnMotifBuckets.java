@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @Entity
 @Getter
 @Setter
-@Table(name = "REM_TRN_MOTIF_BUCKETS" )
+@Table(name = "REM_TRN_MOTIF_BUCKETS" , schema = "ACCTMGMT")
 @NoArgsConstructor
 @AllArgsConstructor
 public class remTrnMotifBuckets {

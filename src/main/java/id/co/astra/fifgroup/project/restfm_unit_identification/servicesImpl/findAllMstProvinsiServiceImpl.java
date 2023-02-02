@@ -21,17 +21,19 @@ public class findAllMstProvinsiServiceImpl implements findAllMstProvinsiService 
     private HttpStatus StatusResponse;
 
     @Override
-    public List<mstProvinsi> findAllMstProvinsiData(){
-        return mstProvinsiRepository.findAll();
-    }
-
     public ResponseEntity findAllMstProvinsi(){
         responseFiduciaObj responseObj = new responseFiduciaObj();
-
-        responseObj.setRespHttpCode("200");
-        responseObj.setRespHttpMessage("Succesfully");
-        responseObj.setData(mstProvinsiRepository.findAll());
-        StatusResponse = HttpStatus.OK;
+        try {
+            responseObj.setRespHttpCode("200");
+            responseObj.setRespHttpMessage("Succesfully");
+            responseObj.setData(mstProvinsiRepository.findAll());
+            StatusResponse = HttpStatus.OK;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            responseObj.setRespHttpCode("400");
+            responseObj.setRespHttpMessage(e.getMessage());
+            StatusResponse = HttpStatus.BAD_REQUEST;
+        }
         return new ResponseEntity(responseObj, StatusResponse);
     }
 }

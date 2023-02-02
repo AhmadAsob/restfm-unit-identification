@@ -10,7 +10,5 @@ import java.util.List;
 
 @Service("findAllMstOfficeService")
 public interface findAllMstOfficeService {
-    public List<mstOffice> findAllMstOfficeData();
-
-    public ResponseEntity findAllMstOffice();
+    public ResponseEntity findAllMstOffice(Integer page);
 }

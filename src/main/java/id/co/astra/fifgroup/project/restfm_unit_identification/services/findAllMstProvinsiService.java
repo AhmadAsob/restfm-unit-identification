@@ -11,5 +11,4 @@ import java.util.List;
 public interface findAllMstProvinsiService {
     public ResponseEntity findAllMstProvinsi();
 
-    public List<mstProvinsi> findAllMstProvinsiData();
 }

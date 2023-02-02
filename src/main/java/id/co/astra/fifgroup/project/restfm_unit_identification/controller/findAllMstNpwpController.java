@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("mstNpwp")
+@RequestMapping("restfmui/v1")
 public class findAllMstNpwpController {
 
     @Autowired
     findAllMstNpwpService findAllMstNpwpService;
 
-    @GetMapping("find-all")
+    @GetMapping("find-all-npwp")
     public ResponseEntity findAll(Authentication authentication){
         return findAllMstNpwpService.findAllMstNpwp();
     }

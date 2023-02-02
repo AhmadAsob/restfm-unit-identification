@@ -2,6 +2,7 @@ package id.co.astra.fifgroup.project.restfm_unit_identification.services;
 
 
 import id.co.astra.fifgroup.project.restfm_unit_identification.entity.mstZip;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +11,5 @@ import java.util.List;
 
 @Service("findAllMstZipService")
 public interface findAllMstZipService {
-    public List<mstZip> findAllMstZipData();
-
-    public ResponseEntity findAllMstZip();
+    public ResponseEntity findAllMstZip(Integer page);
 }

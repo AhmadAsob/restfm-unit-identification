@@ -9,7 +9,7 @@ import java.util.List;
 
 @Service("findAllMstCompany")
 public interface findAllMstCompanyService {
-    public List<mstCompany> findAllMstCompanyData();
-
-    public ResponseEntity findAllMstCompany();
+    public ResponseEntity findAllMstCompany(
+//            String createDate, String updateDate
+    );
 }

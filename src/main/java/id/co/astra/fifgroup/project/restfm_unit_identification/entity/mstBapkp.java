@@ -5,24 +5,22 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Getter
 @Setter
-@Table(name = "MST_BAPKP_V")
+@Table(name = "MST_BAPKP_V", schema = "ACCTMGMT")
 @NoArgsConstructor
 @AllArgsConstructor
 
 public class mstBapkp {
 
-    @Id
+
     @Column(name = "OFFICE_CODE", nullable = false)
     private String officeCode;
 
+    @Id
     @Column(name = "BASTBJ_NO", nullable = false)
     private String bastbjNo;
 
@@ -37,4 +35,7 @@ public class mstBapkp {
 
     @Column(name = "DISTRIBUTION_BY")
     private String distributionBy;
+
+    @Column(name = "STATUS")
+    private String status;
 }

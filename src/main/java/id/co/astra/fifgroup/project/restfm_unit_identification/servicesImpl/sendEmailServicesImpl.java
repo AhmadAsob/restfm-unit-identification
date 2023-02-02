@@ -2,6 +2,7 @@ package id.co.astra.fifgroup.project.restfm_unit_identification.servicesImpl;
 
 import id.co.astra.fifgroup.project.restfm_unit_identification.dto.responseObj;
 import id.co.astra.fifgroup.project.restfm_unit_identification.dto.sendEmaildto;
+import id.co.astra.fifgroup.project.restfm_unit_identification.gateway.sendEmailGateway;
 import id.co.astra.fifgroup.project.restfm_unit_identification.services.sendEmailServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -46,6 +47,9 @@ public class sendEmailServicesImpl implements sendEmailServices {
     @Autowired
     public motifTrnServiceImpl motifTrn;
 
+    @Autowired
+    public sendEmailGateway gateway;
+
     @Override
     public ResponseEntity sendEmail(sendEmaildto dataEmail) {
 
@@ -68,14 +72,17 @@ public class sendEmailServicesImpl implements sendEmailServices {
             responseObj.setRespHttpMessage("Request By can't be null!");
             responseObj.setRespHttpCode("400");
             StatusResponse = HttpStatus.BAD_REQUEST;
-        }else {
+        }else if(dataEmail.getAttachName() == null && dataEmail.getAttachName() != null ){
+            responseObj.setRespHttpMessage("AttachName or AttachBytes can't be null!");
+            responseObj.setRespHttpCode("400");
+            StatusResponse = HttpStatus.BAD_REQUEST;
+        } else if(dataEmail.getAttachName() != null && dataEmail.getAttachName() == null) {
+            responseObj.setRespHttpMessage("AttachName or AttachBytes can't be null!");
+            responseObj.setRespHttpCode("400");
+            StatusResponse = HttpStatus.BAD_REQUEST;
+        } else {
             try{
-                HttpHeaders requestHeaders = new HttpHeaders();
-                requestHeaders.set("Content-Type", "multipart/form-data");
-
-                MultiValueMap<String, Object> dataMap = mapString(dataEmail);
-                HttpEntity<?> httpEntity = new HttpEntity<Object>(dataMap, requestHeaders);
-                ResponseEntity<String> model = restTemplate.exchange(urlEmail, HttpMethod.POST, httpEntity, String.class);
+                ResponseEntity<String> model = gateway.sendEmail(dataEmail);
                 if (model.getBody().equals("OK")) {
                     responseObj.setRespHttpCode("200");
                     responseObj.setRespHttpMessage("Sucessfully");
@@ -88,49 +95,27 @@ public class sendEmailServicesImpl implements sendEmailServices {
                     motifLog.insertLogMotif("","","Send Email","Failed","Failed Send email : " + model.getBody(),dataEmail.getRequestBy());
                 }
                 //Delete dataTemp
-                Delete(dataEmail.getAttachBytes());
+                if(dataEmail.getAttachBytes() != null) {
+                    Delete(dataEmail.getAttachBytes());
+                }
             }catch (Exception e){
-                responseObj.setRespHttpCode("400");
-                responseObj.setRespHttpMessage(e.getMessage());
-                StatusResponse = HttpStatus.BAD_REQUEST;
+                if(dataEmail.getAttachName() == null && dataEmail.getAttachBytes() != null) {
+                    responseObj.setRespHttpCode("400");
+                    responseObj.setRespHttpMessage("AttachName and AttachBytes one of them cannot be null");
+                    StatusResponse = HttpStatus.BAD_REQUEST;
+                } else if(dataEmail.getAttachName() != null && dataEmail.getAttachBytes() == null) {
+                    responseObj.setRespHttpCode("400");
+                    responseObj.setRespHttpMessage("AttachName and AttachBytes one of them cannot be null");
+                    StatusResponse = HttpStatus.BAD_REQUEST;
+                } else {
+                    responseObj.setRespHttpCode("400");
+                    responseObj.setRespHttpMessage(e.getMessage());
+                    StatusResponse = HttpStatus.BAD_REQUEST;
+                }
                 motifLog.insertLogMotif("","","Send Email","Failed","Failed Send email : " + e.getMessage(),dataEmail.getRequestBy());
             }
         }
         return new ResponseEntity(responseObj, StatusResponse);
-    }
-
-    //Set data
-    private MultiValueMap mapString(sendEmaildto dataEmail) {
-        MultiValueMap<String, Object> dataMap = new LinkedMultiValueMap<>();
-        dataMap.add("from", emailFrom);
-        dataMap.add("paswd", emailPasswd);
-        dataMap.add("subject", dataEmail.getSubject());
-        dataMap.add("emailbody", dataEmail.getEmailBody());
-        dinamicLoop("to", dataEmail.getTo(), null, dataMap);
-        dinamicLoop("cc", dataEmail.getCc(), null, dataMap);
-        dinamicLoop("attachName", dataEmail.getAttachName(), null, dataMap);
-        dinamicLoop("attachBytes", null, dataEmail.getAttachBytes(), dataMap);
-
-        return dataMap;
-    }
-
-    //set Data Loop
-    String dinamicLoop(String key, String[] stringValue, MultipartFile[] attachFile, MultiValueMap dataMap) {
-        if (key == "cc" && stringValue == null) {
-            dataMap.add(key, stringValue);
-        } else {
-            if (key != "attachBytes") {
-                for (String kV : stringValue) {
-                    dataMap.add(key, kV);
-                }
-            } else {
-                for (MultipartFile dataFile : attachFile) {
-                    Resource rc = new FileSystemResource(convert(dataFile));
-                    dataMap.add("attachBytes", rc);
-                }
-            }
-        }
-        return "OK";
     }
 
     //method delete file
@@ -141,20 +126,6 @@ public class sendEmailServicesImpl implements sendEmailServices {
         }
     }
 
-    //create local file
-    private static File convert(MultipartFile file) {
-
-        File convFile = new File(file.getOriginalFilename());
-        try {
-            convFile.createNewFile();
-            FileOutputStream fos = new FileOutputStream(convFile);
-            fos.write(file.getBytes());
-            fos.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return convFile;
-    }
 
 }
 

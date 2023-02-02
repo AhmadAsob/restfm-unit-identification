@@ -2,7 +2,6 @@ package id.co.astra.fifgroup.project.restfm_unit_identification.servicesImpl;
 
 
 import id.co.astra.fifgroup.project.restfm_unit_identification.dto.responseFiduciaObj;
-import id.co.astra.fifgroup.project.restfm_unit_identification.entity.remTrnMotifBuckets;
 import id.co.astra.fifgroup.project.restfm_unit_identification.repository.motif_TrnRepo;
 import id.co.astra.fifgroup.project.restfm_unit_identification.services.findAllMotifTrnService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,17 +20,19 @@ public class findAllMotifTrnServiceImpl implements findAllMotifTrnService {
     private HttpStatus StatusResponse;
 
     @Override
-    public List<remTrnMotifBuckets> findAllTrnMotifData(){
-    return motif_trnRepo.findAll();
-}
-
-    public ResponseEntity findAllTrnMotif(){
+    public ResponseEntity findAllTrnMotif() {
         responseFiduciaObj responseObj = new responseFiduciaObj();
-
-        responseObj.setRespHttpCode("200");
-        responseObj.setRespHttpMessage("Succesfully");
-        responseObj.setData(motif_trnRepo.findAll());
-        StatusResponse = HttpStatus.OK;
+        try {
+            responseObj.setRespHttpCode("200");
+            responseObj.setRespHttpMessage("Succesfully");
+            responseObj.setData(motif_trnRepo.findAll());
+            StatusResponse = HttpStatus.OK;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            responseObj.setRespHttpCode("400");
+            responseObj.setRespHttpMessage(e.getMessage());
+            StatusResponse = HttpStatus.BAD_REQUEST;
+        }
         return new ResponseEntity(responseObj, StatusResponse);
     }
 }

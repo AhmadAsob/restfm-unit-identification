@@ -21,17 +21,59 @@ public class findAllMstCompanyServiceImpl implements findAllMstCompanyService {
     private HttpStatus StatusResponse;
 
     @Override
-    public List<mstCompany> findAllMstCompanyData(){
-        return mstCompanyRepository.findAll();
-    }
-
-    public ResponseEntity findAllMstCompany(){
+    public ResponseEntity findAllMstCompany(
+//            String createDate, String updateDate
+    ){
         responseFiduciaObj responseObj = new responseFiduciaObj();
-
-        responseObj.setRespHttpCode("200");
-        responseObj.setRespHttpMessage("Succesfully");
-        responseObj.setData(mstCompanyRepository.findAll());
-        StatusResponse = HttpStatus.OK;
+//        if  (createDate == "" && updateDate == "") {
+        try {
+            responseObj.setRespHttpCode("200");
+            responseObj.setRespHttpMessage("Succesfully");
+            responseObj.setData(mstCompanyRepository.findAll());
+            StatusResponse = HttpStatus.OK;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            responseObj.setRespHttpCode("400");
+            responseObj.setRespHttpMessage(e.getMessage());
+            StatusResponse = HttpStatus.BAD_REQUEST;
+        }
+//        } else if (updateDate == null) {
+//            try {
+//                responseObj.setRespHttpCode("200");
+//                responseObj.setRespHttpMessage("Succesfully");
+//                responseObj.setData(mstCompanyRepository.findByCreateDateAndUpdateDateIsNull(createDate));
+//                StatusResponse = HttpStatus.OK;
+//            } catch (Exception e) {
+//                System.out.println(e.getMessage());
+//                responseObj.setRespHttpCode("400");
+//                responseObj.setRespHttpMessage(e.getMessage());
+//                StatusResponse = HttpStatus.BAD_REQUEST;
+//            }
+//        } else if (createDate == null) {
+//            try {
+//                responseObj.setRespHttpCode("200");
+//                responseObj.setRespHttpMessage("Succesfully");
+//                responseObj.setData(mstCompanyRepository.findByCreateDateIsNullAndUpdateDate(updateDate));
+//                StatusResponse = HttpStatus.OK;
+//            } catch (Exception e) {
+//                System.out.println(e.getMessage());
+//                responseObj.setRespHttpCode("400");
+//                responseObj.setRespHttpMessage(e.getMessage());
+//                StatusResponse = HttpStatus.BAD_REQUEST;
+//            }
+//        } else {
+//            try {
+//                responseObj.setRespHttpCode("200");
+//                responseObj.setRespHttpMessage("Succesfully");
+//                responseObj.setData(mstCompanyRepository.findByCreateDateAndUpdateDate(createDate, updateDate));
+//                StatusResponse = HttpStatus.OK;
+//            } catch (Exception e) {
+//                System.out.println(e.getMessage());
+//                responseObj.setRespHttpCode("400");
+//                responseObj.setRespHttpMessage(e.getMessage());
+//                StatusResponse = HttpStatus.BAD_REQUEST;
+//            }
+//        }
         return new ResponseEntity(responseObj, StatusResponse);
     }
 }

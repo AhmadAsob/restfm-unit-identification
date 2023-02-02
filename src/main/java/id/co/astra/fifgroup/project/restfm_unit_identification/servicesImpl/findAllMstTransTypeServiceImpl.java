@@ -21,17 +21,20 @@ public class findAllMstTransTypeServiceImpl implements findAllMstTransTypeServic
     private HttpStatus StatusResponse;
 
     @Override
-    public List<mstTransType> findAllMstTransTypeData(){
-        return mstTransTypeRepository.findAll();
-    }
-
     public ResponseEntity findAllMstTransType(){
         responseFiduciaObj responseObj = new responseFiduciaObj();
+        try {
+            responseObj.setRespHttpCode("200");
+            responseObj.setRespHttpMessage("Succesfully");
+            responseObj.setData(mstTransTypeRepository.findAll());
+            StatusResponse = HttpStatus.OK;
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            responseObj.setRespHttpCode("400");
+            responseObj.setRespHttpMessage(e.getMessage());
+            StatusResponse = HttpStatus.BAD_REQUEST;
+        }
 
-        responseObj.setRespHttpCode("200");
-        responseObj.setRespHttpMessage("Succesfully");
-        responseObj.setData(mstTransTypeRepository.findAll());
-        StatusResponse = HttpStatus.OK;
         return new ResponseEntity(responseObj, StatusResponse);
     }
 }

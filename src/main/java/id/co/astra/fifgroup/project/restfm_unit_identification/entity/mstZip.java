@@ -13,7 +13,7 @@ import javax.persistence.Table;
 @Entity
 @Getter
 @Setter
-@Table(name = "MST_ZIP_V")
+@Table(name = "MST_ZIP_V", schema = "ACCTMGMT")
 @NoArgsConstructor
 @AllArgsConstructor
 public class mstZip {

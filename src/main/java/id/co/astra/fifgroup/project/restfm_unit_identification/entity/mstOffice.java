@@ -13,7 +13,7 @@ import javax.persistence.Table;
 @Entity
 @Getter
 @Setter
-@Table(name = "MST_OFFICE_V")
+@Table(name = "MST_OFFICE_V", schema = "ACCTMGMT")
 @NoArgsConstructor
 @AllArgsConstructor
 public class mstOffice {
@@ -22,14 +22,14 @@ public class mstOffice {
     @Column(name = "OFFICE_CODE", nullable = false)
     private String officeCode;
 
-    @Column(name = "OFFICE_NAME")
+    @Column(name = "NAME_FULL")
     private String officeName;
+
+    @Column(name = "OFFICE_TYPE")
+    private String officeType;
 
     @Column(name = "REGIONAL_ID", nullable = false)
     private String regionalId;
-
-    @Column(name = "REGIONAL_NAME", nullable = false)
-    private String regionalName;
 
     @Column(name = "ADDRESS1")
     private String address1;
@@ -37,13 +37,16 @@ public class mstOffice {
     @Column(name = "ADDRESS2")
     private String address2;
 
-    @Column(name = "PHONE_NO")
+    @Column(name = "CITY")
+    private String city;
+
+    @Column(name = "PHONE1")
     private String phoneNo;
 
     @Column(name = "LATITUDE")
-    private Integer latitude;
+    private String latitude;
 
     @Column(name = "LONGITUDE")
-    private Integer longitude;
+    private String longitude;
 
 }

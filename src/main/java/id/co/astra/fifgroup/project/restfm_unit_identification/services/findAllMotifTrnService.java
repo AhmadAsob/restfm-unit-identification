@@ -12,5 +12,4 @@ import java.util.List;
 public interface findAllMotifTrnService {
     public ResponseEntity findAllTrnMotif();
 
-    public List<remTrnMotifBuckets> findAllTrnMotifData();
 }

@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("mstProvinsi")
+@RequestMapping("restfmui/v1")
 public class findAllMstProvinsiController {
 
     @Autowired
     findAllMstProvinsiService findAllMstProvinsiService;
 
-    @GetMapping("find-all")
+    @GetMapping("find-all-provinsi")
     public ResponseEntity findAll(Authentication authentication){
         return findAllMstProvinsiService.findAllMstProvinsi();
     }

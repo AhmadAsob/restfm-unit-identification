@@ -12,7 +12,7 @@ import java.util.Date;
  */
 
 @Entity
-@Table(name = "REM_TRN_WS_MOTIF")
+@Table(name = "REM_TRN_WS_MOTIF", schema = "ACCTMGMT")
 public class remTrnWsMotif {
 
     @Id

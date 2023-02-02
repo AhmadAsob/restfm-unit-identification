@@ -13,7 +13,7 @@ import javax.persistence.Table;
 @Entity
 @Getter
 @Setter
-@Table(name = "MST_KELURAHAN_V")
+@Table(name = "MST_KELURAHAN_V", schema = "ACCTMGMT")
 @NoArgsConstructor
 @AllArgsConstructor
 public class mstKelurahan {

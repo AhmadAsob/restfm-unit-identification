@@ -14,13 +14,13 @@ import springfox.documentation.spring.web.readers.operation.ResponseMessagesRead
 import java.util.List;
 
 @RestController
-@RequestMapping("mstTransType")
+@RequestMapping("restfmui/v1")
 public class findAllMstTransTypeController {
 
     @Autowired
     findAllMstTransTypeService findAllMstTransTypeService;
 
-    @GetMapping("find-all")
+    @GetMapping("find-all-trans-type")
     public ResponseEntity findAll (Authentication authentication){
         return findAllMstTransTypeService.findAllMstTransType();
     }

@@ -9,8 +9,6 @@ import java.util.List;
 
 @Service("findAllMstBankService")
 public interface findAllMstBankService {
-    public List<mstBank> findAllMstBankData();
-
     public ResponseEntity findAllMstBank();
 
 

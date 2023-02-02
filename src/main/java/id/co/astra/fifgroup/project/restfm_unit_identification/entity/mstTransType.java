@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @Entity
 @Getter
 @Setter
-@Table(name = "AR_MST_TRANS_TYPE_V")
+@Table(name = "AR_MST_TRANS_TYPE_V", schema = "ACCTMGMT")
 @NoArgsConstructor
 @AllArgsConstructor
 public class mstTransType {

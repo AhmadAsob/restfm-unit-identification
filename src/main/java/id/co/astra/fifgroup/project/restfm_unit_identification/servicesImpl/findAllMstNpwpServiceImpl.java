@@ -21,17 +21,19 @@ public class findAllMstNpwpServiceImpl implements findAllMstNpwpService {
     private HttpStatus StatusResponse;
 
     @Override
-    public List<mstNpwpKpp> findAllMstNpwpData(){
-        return mstNpwpKppRepo.findAll();
-    }
-
     public ResponseEntity findAllMstNpwp(){
         responseFiduciaObj responseObj = new responseFiduciaObj();
-
-        responseObj.setRespHttpCode("200");
-        responseObj.setRespHttpMessage("Succesfully");
-        responseObj.setData(mstNpwpKppRepo.findAll());
-        StatusResponse = HttpStatus.OK;
+        try {
+            responseObj.setRespHttpCode("200");
+            responseObj.setRespHttpMessage("Succesfully");
+            responseObj.setData(mstNpwpKppRepo.findAll());
+            StatusResponse = HttpStatus.OK;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            responseObj.setRespHttpCode("400");
+            responseObj.setRespHttpMessage(e.getMessage());
+            StatusResponse = HttpStatus.BAD_REQUEST;
+        }
         return new ResponseEntity(responseObj, StatusResponse);
     }
 }

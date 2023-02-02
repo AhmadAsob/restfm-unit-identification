@@ -12,7 +12,7 @@ import java.util.Date;
  */
 
 @Entity
-@Table(name = "REM_WS_MOTIF_LOG")
+@Table(name = "REM_WS_MOTIF_LOG", schema = "ACCTMGMT")
 public class remWsMotifLog {
     @Id
     @Column(name = "UUID", nullable = false)

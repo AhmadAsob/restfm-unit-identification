@@ -9,7 +9,5 @@ import java.util.List;
 
 @Service("findAllMstCitiesService")
 public interface findAllMstCitiesService {
-    public List<mstCities> findAllMstCitiesData();
-
     public ResponseEntity findAllMstCities();
 }

@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("mstBank")
+@RequestMapping("restfmui/v1")
 public class findAllMstBankController {
 
     @Autowired
     findAllMstBankService findAllMstBankService;
 
-    @GetMapping("find-all")
+    @GetMapping("find-all-bank")
     public ResponseEntity findAll(Authentication authentication){
         return findAllMstBankService.findAllMstBank();
     }

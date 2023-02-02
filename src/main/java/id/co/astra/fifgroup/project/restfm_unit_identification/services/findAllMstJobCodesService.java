@@ -9,7 +9,7 @@ import java.util.List;
 
 @Service("findAllMstJobCodesService")
 public interface findAllMstJobCodesService {
-    public List<mstJobCodes> findAllMstJobCodesData();
-
-    public ResponseEntity findAllMstJobCodes();
+    public ResponseEntity findAllMstJobCodes(
+//            String createTimestamp, String updateTimestamp
+    );
 }

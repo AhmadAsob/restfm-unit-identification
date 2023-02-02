@@ -21,17 +21,20 @@ public class findAllMstCitiesServiceImpl implements findAllMstCitiesService {
     private HttpStatus StatusResponse;
 
     @Override
-    public List<mstCities> findAllMstCitiesData(){
-        return mstCitiesRepository.findAll();
-    }
-
     public ResponseEntity findAllMstCities(){
         responseFiduciaObj responseObj = new responseFiduciaObj();
-
-        responseObj.setRespHttpCode("200");
-        responseObj.setRespHttpMessage("Succesfully");
-        responseObj.setData(mstCitiesRepository.findAll());
-        StatusResponse = HttpStatus.OK;
+        try{
+            responseObj.setRespHttpCode("200");
+            responseObj.setRespHttpMessage("Succesfully");
+            responseObj.setData(mstCitiesRepository.findAll());
+            StatusResponse = HttpStatus.OK;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            responseObj.setRespHttpCode("400");
+            responseObj.setRespHttpMessage(e.getMessage());
+            StatusResponse = HttpStatus.BAD_REQUEST;
+        }
         return new ResponseEntity(responseObj, StatusResponse);
     }
+
 }

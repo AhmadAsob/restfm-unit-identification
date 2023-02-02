@@ -10,7 +10,5 @@ import java.util.List;
 
 @Service("findAllMstTransTypeService")
 public interface findAllMstTransTypeService {
-    public List<mstTransType> findAllMstTransTypeData();
-
     public ResponseEntity findAllMstTransType();
 }

@@ -9,7 +9,5 @@ import java.util.List;
 
 @Service("findAllMstNpwpService")
 public interface findAllMstNpwpService {
-    public List<mstNpwpKpp> findAllMstNpwpData();
-
     public ResponseEntity findAllMstNpwp();
 }

@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @Entity
 @Getter
 @Setter
-@Table(name = "MST_MOU_HDRS_V")
+@Table(name = "MST_MOU_HDRS_V", schema = "ACCTMGMT")
 @NoArgsConstructor
 @AllArgsConstructor
 public class mstMouHdrs {

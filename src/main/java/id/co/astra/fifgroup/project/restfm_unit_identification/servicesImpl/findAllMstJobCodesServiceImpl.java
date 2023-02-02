@@ -22,17 +22,59 @@ public class findAllMstJobCodesServiceImpl implements findAllMstJobCodesService 
     private HttpStatus StatusResponse;
 
     @Override
-    public List<mstJobCodes> findAllMstJobCodesData(){
-        return mstJobCodesRepository.findAll();
-    }
-
-    public ResponseEntity findAllMstJobCodes(){
+    public ResponseEntity findAllMstJobCodes(
+//            String createTimestamp, String updateTimestamp
+    ){
         responseFiduciaObj responseObj = new responseFiduciaObj();
-
-        responseObj.setRespHttpCode("200");
-        responseObj.setRespHttpMessage("Succesfully");
-        responseObj.setData(mstJobCodesRepository.findAll());
-        StatusResponse = HttpStatus.OK;
+//        if (createTimestamp == "" && updateTimestamp == "") {
+            try {
+                responseObj.setRespHttpCode("200");
+                responseObj.setRespHttpMessage("Succesfully");
+                responseObj.setData(mstJobCodesRepository.findAll());
+                StatusResponse = HttpStatus.OK;
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                responseObj.setRespHttpCode("400");
+                responseObj.setRespHttpMessage(e.getMessage());
+                StatusResponse = HttpStatus.BAD_REQUEST;
+            }
+//        } else if (updateTimestamp == null) {
+//            try {
+//                responseObj.setRespHttpCode("200");
+//                responseObj.setRespHttpMessage("Succesfully");
+//                responseObj.setData(mstJobCodesRepository.getByCreatedTimestampAndLastUpdateTimestampIsNull(createTimestamp));
+//                StatusResponse = HttpStatus.OK;
+//            } catch (Exception e) {
+//                System.out.println(e.getMessage());
+//                responseObj.setRespHttpCode("400");
+//                responseObj.setRespHttpMessage(e.getMessage());
+//                StatusResponse = HttpStatus.BAD_REQUEST;
+//            }
+//        } else if (createTimestamp == null) {
+//            try {
+//                responseObj.setRespHttpCode("200");
+//                responseObj.setRespHttpMessage("Succesfully");
+//                responseObj.setData(mstJobCodesRepository.getByCreatedTimestampIsNullAndLastUpdateTimestamp(updateTimestamp));
+//                StatusResponse = HttpStatus.OK;
+//            } catch (Exception e) {
+//                System.out.println(e.getMessage());
+//                responseObj.setRespHttpCode("400");
+//                responseObj.setRespHttpMessage(e.getMessage());
+//                StatusResponse = HttpStatus.BAD_REQUEST;
+//            }
+//        } else {
+//            try {
+//                responseObj.setRespHttpCode("200");
+//                responseObj.setRespHttpMessage("Succesfully");
+//                responseObj.setData(mstJobCodesRepository.getByCreatedTimestampAndLastUpdateTimestamp(createTimestamp, updateTimestamp));
+//                StatusResponse = HttpStatus.OK;
+//            } catch (Exception e) {
+//                System.out.println(e.getMessage());
+//                responseObj.setRespHttpCode("400");
+//                responseObj.setRespHttpMessage(e.getMessage());
+//                StatusResponse = HttpStatus.BAD_REQUEST;
+//            }
+//        }
         return new ResponseEntity(responseObj, StatusResponse);
     }
 }
