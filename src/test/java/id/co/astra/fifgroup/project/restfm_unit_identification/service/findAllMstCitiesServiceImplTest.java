@@ -2,8 +2,8 @@
 //
 //
 //import id.co.astra.fifgroup.project.restfm_unit_identification.dto.responseFiduciaObj;
-//import id.co.astra.fifgroup.project.restfm_unit_identification.entity.mstCities;
-//import id.co.astra.fifgroup.project.restfm_unit_identification.repository.MstCitiesRepository;
+//import id.co.astra.fifgroup.project.restfm_unit_identification.entity.FifAppsEntity.mstCities;
+//import id.co.astra.fifgroup.project.restfm_unit_identification.repository.FifAppsRepo.MstCitiesRepository;
 //import id.co.astra.fifgroup.project.restfm_unit_identification.services.findAllMstCitiesService;
 //import org.json.JSONObject;
 //import org.junit.jupiter.api.Test;

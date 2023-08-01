@@ -3,11 +3,9 @@ package id.co.astra.fifgroup.project.restfm_unit_identification.servicesImpl;
 
 import id.co.astra.fifgroup.project.restfm_unit_identification.dto.responseFiduciaObj;
 import id.co.astra.fifgroup.project.restfm_unit_identification.dto.responseSkpcProcedure;
-import id.co.astra.fifgroup.project.restfm_unit_identification.dto.skpcInputProcedure;
-import id.co.astra.fifgroup.project.restfm_unit_identification.entity.RemTrnSkpc;
-import id.co.astra.fifgroup.project.restfm_unit_identification.entity.mstMouHdrs;
+import id.co.astra.fifgroup.project.restfm_unit_identification.entity.FifappsEntity.RemTrnSkpc;
 import id.co.astra.fifgroup.project.restfm_unit_identification.gateway.skpcGetway;
-import id.co.astra.fifgroup.project.restfm_unit_identification.repository.RemTrnSKPCRepository;
+import id.co.astra.fifgroup.project.restfm_unit_identification.repository.FifappsRepo.RemTrnSKPCRepository;
 import id.co.astra.fifgroup.project.restfm_unit_identification.services.findAllRemTrnSkpcService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

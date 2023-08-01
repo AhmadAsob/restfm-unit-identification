@@ -1,8 +1,8 @@
 //package id.co.astra.fifgroup.project.restfm_unit_identification.service;
 //
 //import id.co.astra.fifgroup.project.restfm_unit_identification.dto.responseFiduciaObj;
-//import id.co.astra.fifgroup.project.restfm_unit_identification.entity.mstBank;
-//import id.co.astra.fifgroup.project.restfm_unit_identification.repository.MstBankRepo;
+//import id.co.astra.fifgroup.project.restfm_unit_identification.entity.FifAppsEntity.mstBank;
+//import id.co.astra.fifgroup.project.restfm_unit_identification.repository.FifAppsRepo.MstBankRepo;
 //import id.co.astra.fifgroup.project.restfm_unit_identification.services.findAllMstBankService;
 //import org.json.JSONException;
 //import org.json.JSONObject;

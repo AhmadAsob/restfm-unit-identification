@@ -20,6 +20,16 @@ public class RemTrnMotifPuInsertDto implements Serializable {
     private final Long nominalPembayaran;
     private final String alasan;
     private final String status;
+    private final String result;
+    private final String crcId;
+    private final String lkpNo;
+    private final String rvbNo;
+    private final String receiveInstallment;
+    private final String receivePenalty;
+    private final int receiveCollfee;
+    private final String bussUnit;
+    private final String coyId;
+    private final String platform;
 
 //    public RemTrnMotifPu convert(){
 //        DateTimeFormatter formatTanggal = DateTimeFormatter.ofPattern("dd MMMM yyyy", new Locale("id","ID"));

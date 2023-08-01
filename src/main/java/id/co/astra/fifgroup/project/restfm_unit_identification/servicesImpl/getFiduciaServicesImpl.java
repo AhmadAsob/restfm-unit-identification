@@ -1,22 +1,18 @@
 package id.co.astra.fifgroup.project.restfm_unit_identification.servicesImpl;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import id.co.astra.fifgroup.project.restfm_unit_identification.dto.responseFiduciaObj;
 import id.co.astra.fifgroup.project.restfm_unit_identification.dto.resultDataFiduciadto;
 import id.co.astra.fifgroup.project.restfm_unit_identification.gateway.getFiduciaGateway;
 import id.co.astra.fifgroup.project.restfm_unit_identification.gateway.getTokenGateway;
-import id.co.astra.fifgroup.project.restfm_unit_identification.repository.motif_LogRepo;
+import id.co.astra.fifgroup.project.restfm_unit_identification.repository.FifappsRepo.motif_LogRepo;
 import id.co.astra.fifgroup.project.restfm_unit_identification.services.getFiduciaServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import javax.persistence.EntityManager;

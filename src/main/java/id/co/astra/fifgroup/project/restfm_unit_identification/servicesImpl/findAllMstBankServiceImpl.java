@@ -3,8 +3,8 @@ package id.co.astra.fifgroup.project.restfm_unit_identification.servicesImpl;
 
 
 import id.co.astra.fifgroup.project.restfm_unit_identification.dto.responseFiduciaObj;
-import id.co.astra.fifgroup.project.restfm_unit_identification.repository.FsMstSupplierRepository;
-import id.co.astra.fifgroup.project.restfm_unit_identification.repository.MstBankRepo;
+import id.co.astra.fifgroup.project.restfm_unit_identification.repository.FifMotifRepo.StgBucketMotifTaskRepository;
+import id.co.astra.fifgroup.project.restfm_unit_identification.repository.FifappsRepo.MstBankRepo;
 import id.co.astra.fifgroup.project.restfm_unit_identification.services.findAllMstBankService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

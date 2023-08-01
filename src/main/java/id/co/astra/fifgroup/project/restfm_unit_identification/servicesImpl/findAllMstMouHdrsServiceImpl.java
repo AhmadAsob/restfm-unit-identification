@@ -2,9 +2,9 @@ package id.co.astra.fifgroup.project.restfm_unit_identification.servicesImpl;
 
 
 import id.co.astra.fifgroup.project.restfm_unit_identification.dto.responseFiduciaObj;
-import id.co.astra.fifgroup.project.restfm_unit_identification.entity.mstMouHdrs;
-import id.co.astra.fifgroup.project.restfm_unit_identification.repository.FsMstSupplierRepository;
-import id.co.astra.fifgroup.project.restfm_unit_identification.repository.MstMouHdrsRepository;
+import id.co.astra.fifgroup.project.restfm_unit_identification.entity.FifappsEntity.mstMouHdrs;
+import id.co.astra.fifgroup.project.restfm_unit_identification.repository.FifappsRepo.FsMstSupplierRepository;
+import id.co.astra.fifgroup.project.restfm_unit_identification.repository.FifappsRepo.MstMouHdrsRepository;
 import id.co.astra.fifgroup.project.restfm_unit_identification.services.findAllMstMouHdrsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

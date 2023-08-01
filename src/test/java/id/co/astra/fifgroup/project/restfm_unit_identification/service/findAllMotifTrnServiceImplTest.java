@@ -1,8 +1,8 @@
 //package id.co.astra.fifgroup.project.restfm_unit_identification.service;
 //
 //import id.co.astra.fifgroup.project.restfm_unit_identification.dto.responseFiduciaObj;
-//import id.co.astra.fifgroup.project.restfm_unit_identification.entity.remTrnMotifBuckets;
-//import id.co.astra.fifgroup.project.restfm_unit_identification.repository.motif_TrnRepo;
+//import id.co.astra.fifgroup.project.restfm_unit_identification.entity.FifAppsEntity.remTrnMotifBuckets;
+//import id.co.astra.fifgroup.project.restfm_unit_identification.repository.FifAppsRepo.motif_TrnRepo;
 //import id.co.astra.fifgroup.project.restfm_unit_identification.services.findAllMotifTrnService;
 //import id.co.astra.fifgroup.project.restfm_unit_identification.servicesImpl.findAllMotifTrnServiceImpl;
 //import org.apache.tomcat.jni.Local;

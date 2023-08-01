@@ -1,8 +1,8 @@
 //package id.co.astra.fifgroup.project.restfm_unit_identification.service;
 //
 //import id.co.astra.fifgroup.project.restfm_unit_identification.dto.responseFiduciaObj;
-//import id.co.astra.fifgroup.project.restfm_unit_identification.entity.mstBapkp;
-//import id.co.astra.fifgroup.project.restfm_unit_identification.repository.MstBapkpRepo;
+//import id.co.astra.fifgroup.project.restfm_unit_identification.entity.FifAppsEntity.mstBapkp;
+//import id.co.astra.fifgroup.project.restfm_unit_identification.repository.FifAppsRepo.MstBapkpRepo;
 //import id.co.astra.fifgroup.project.restfm_unit_identification.services.findAllMstBapkpService;
 //import org.json.JSONObject;
 //import org.junit.jupiter.api.Test;

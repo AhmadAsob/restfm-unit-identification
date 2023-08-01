@@ -3,6 +3,7 @@ package id.co.astra.fifgroup.project.restfm_unit_identification.controller;
 import id.co.astra.fifgroup.project.restfm_unit_identification.dto.RemTrnMotifPuInsertDto;
 import id.co.astra.fifgroup.project.restfm_unit_identification.dto.RemTrnSkpcParamDto;
 import id.co.astra.fifgroup.project.restfm_unit_identification.services.insertRemTrnPuService;
+import oracle.jdbc.proxy.annotation.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,4 +36,11 @@ public class insertRemTrnMotifPuController {
     public ResponseEntity findByContractNo (@RequestBody RemTrnMotifPuInsertDto remTrnMotifPuInsertDto){
         return insertRemTrnPuService.getByContractNo(remTrnMotifPuInsertDto);
     }
+
+    @PostMapping("auto-insert-pu")
+    public  ResponseEntity autoInsertPu (){
+        return insertRemTrnPuService.insertSchedulerPu();
+    }
+
+
 }

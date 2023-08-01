@@ -1,12 +1,14 @@
 package id.co.astra.fifgroup.project.restfm_unit_identification.servicesImpl;
 
-import id.co.astra.fifgroup.project.restfm_unit_identification.dto.RemTrnMotifPuInsertDto;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import id.co.astra.fifgroup.project.restfm_unit_identification.dto.RemTrnSkpcDto;
 import id.co.astra.fifgroup.project.restfm_unit_identification.dto.responseObj;
-import id.co.astra.fifgroup.project.restfm_unit_identification.entity.RemTrnSkpc;
-import id.co.astra.fifgroup.project.restfm_unit_identification.entity.RemTrnSkpcId;
-import id.co.astra.fifgroup.project.restfm_unit_identification.repository.ArTrnSumContractRepository;
-import id.co.astra.fifgroup.project.restfm_unit_identification.repository.RemTrnSKPCRepository;
+import id.co.astra.fifgroup.project.restfm_unit_identification.entity.FifappsEntity.RemTrnSkpc;
+import id.co.astra.fifgroup.project.restfm_unit_identification.entity.FifappsEntity.RemTrnSkpcId;
+import id.co.astra.fifgroup.project.restfm_unit_identification.gateway.RemLogMotifErrGateway;
+import id.co.astra.fifgroup.project.restfm_unit_identification.repository.FifappsRepo.ArTrnSumContractRepository;
+import id.co.astra.fifgroup.project.restfm_unit_identification.repository.FifappsRepo.RemTrnSKPCRepository;
 import id.co.astra.fifgroup.project.restfm_unit_identification.services.insertRemTrnSkpcService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,6 +26,9 @@ public class insertRemTrnSkpcServiceImpl implements insertRemTrnSkpcService {
 
     @Autowired
     private ArTrnSumContractRepository arTrnSumContractRepository;
+
+    @Autowired
+    private RemLogMotifErrGateway remLogMotifErrGateway;
 
     private HttpStatus StatusResponse;
 
@@ -53,6 +58,7 @@ public class insertRemTrnSkpcServiceImpl implements insertRemTrnSkpcService {
             if (remTrnSkpc.getCoyId() == null || remTrnSkpc.getStatusSkpc().isEmpty()) {
                 responseObj.setRespHttpCode("400");
                 responseObj.setRespHttpMessage("Contract No Not Found");
+                remLogMotifErrGateway.insertLogRemLogMotifErr(remTrnSkpcDto, convertObjectToJson(responseObj, true), "POST_INSERT_SKPC", "Can't insert to table REM_TRN_SKPC");
                 StatusResponse = HttpStatus.BAD_REQUEST;
             } else {
                 remTrnSkpc.setFreezeDate(null);
@@ -67,10 +73,20 @@ public class insertRemTrnSkpcServiceImpl implements insertRemTrnSkpcService {
                 } else {
                     responseObj.setRespHttpCode("400");
                     responseObj.setRespHttpMessage("Cannot input other than NA, AC, and CL");
+                    remLogMotifErrGateway.insertLogRemLogMotifErr(remTrnSkpcDto, convertObjectToJson(responseObj, true), "POST_INSERT_SKPC", "Can't insert to table REM_TRN_SKPC");
                     StatusResponse = HttpStatus.OK;
                 }
             }
         return new ResponseEntity(responseObj, StatusResponse);
+    }
+
+    private String convertObjectToJson(Object data, boolean isIncludeNull) {
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        if (isIncludeNull) {
+            gsonBuilder.serializeNulls();
+        }
+        Gson gson = gsonBuilder.create();
+        return gson.toJson(data);
     }
 
 

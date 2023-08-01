@@ -1,8 +1,8 @@
 //package id.co.astra.fifgroup.project.restfm_unit_identification.service;
 //
 //import id.co.astra.fifgroup.project.restfm_unit_identification.dto.responseFiduciaObj;
-//import id.co.astra.fifgroup.project.restfm_unit_identification.entity.mstEmployees;
-//import id.co.astra.fifgroup.project.restfm_unit_identification.repository.MstEmployeesRepository;
+//import id.co.astra.fifgroup.project.restfm_unit_identification.entity.FifAppsEntity.mstEmployees;
+//import id.co.astra.fifgroup.project.restfm_unit_identification.repository.FifAppsRepo.MstEmployeesRepository;
 //import id.co.astra.fifgroup.project.restfm_unit_identification.services.findAllMstEmployeeService;
 //import oracle.jdbc.driver.json.binary.JsonpOsonObject;
 //import org.json.JSONObject;

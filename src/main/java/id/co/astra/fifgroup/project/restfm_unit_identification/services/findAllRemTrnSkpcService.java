@@ -1,9 +1,6 @@
 package id.co.astra.fifgroup.project.restfm_unit_identification.services;
 
 import id.co.astra.fifgroup.project.restfm_unit_identification.dto.responseSkpcProcedure;
-import id.co.astra.fifgroup.project.restfm_unit_identification.dto.skpcInputProcedure;
-import id.co.astra.fifgroup.project.restfm_unit_identification.entity.RemTrnSkpc;
-import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 

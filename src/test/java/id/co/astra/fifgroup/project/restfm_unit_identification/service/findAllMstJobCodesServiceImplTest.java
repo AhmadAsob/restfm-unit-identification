@@ -1,8 +1,8 @@
 //package id.co.astra.fifgroup.project.restfm_unit_identification.service;
 //
 //import id.co.astra.fifgroup.project.restfm_unit_identification.dto.responseFiduciaObj;
-//import id.co.astra.fifgroup.project.restfm_unit_identification.entity.mstJobCodes;
-//import id.co.astra.fifgroup.project.restfm_unit_identification.repository.MstJobCodesRepository;
+//import id.co.astra.fifgroup.project.restfm_unit_identification.entity.FifAppsEntity.mstJobCodes;
+//import id.co.astra.fifgroup.project.restfm_unit_identification.repository.FifAppsRepo.MstJobCodesRepository;
 //import id.co.astra.fifgroup.project.restfm_unit_identification.services.findAllMstJobCodesService;
 //import org.apache.tomcat.jni.Local;
 //import org.json.JSONObject;

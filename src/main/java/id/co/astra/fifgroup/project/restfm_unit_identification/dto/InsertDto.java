@@ -71,6 +71,9 @@ public class InsertDto {
     private  String personalIdIndentifikasi;
     private  String personalIdAddr1;
     private  String personalIdCity;
+    private  String personalIdKecamatan;
+    private  String personalIdKelurahan;
+    private  String personalIdRtRw;
     private  String personalIdZipCode;
     private  String personalIdEmcName;
     private  String personalIdEmcAddr1;

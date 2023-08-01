@@ -1,8 +1,7 @@
 package id.co.astra.fifgroup.project.restfm_unit_identification.servicesImpl;
 
-import id.co.astra.fifgroup.project.restfm_unit_identification.entity.remTrnWsMotif;
-import id.co.astra.fifgroup.project.restfm_unit_identification.repository.RemTrnWsMotifRepository;
-import id.co.astra.fifgroup.project.restfm_unit_identification.repository.motif_TrnRepo;
+import id.co.astra.fifgroup.project.restfm_unit_identification.entity.FifappsEntity.remTrnWsMotif;
+import id.co.astra.fifgroup.project.restfm_unit_identification.repository.FifappsRepo.RemTrnWsMotifRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

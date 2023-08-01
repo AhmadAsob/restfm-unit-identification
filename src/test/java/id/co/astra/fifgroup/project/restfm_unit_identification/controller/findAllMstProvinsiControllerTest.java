@@ -4,7 +4,7 @@
 //import com.fasterxml.jackson.databind.ObjectMapper;
 //import id.co.astra.fifgroup.project.restfm_unit_identification.dto.responseFiduciaObj;
 //import id.co.astra.fifgroup.project.restfm_unit_identification.dto.responseObj;
-//import id.co.astra.fifgroup.project.restfm_unit_identification.entity.mstProvinsi;
+//import id.co.astra.fifgroup.project.restfm_unit_identification.entity.FifAppsEntity.mstProvinsi;
 //import id.co.astra.fifgroup.project.restfm_unit_identification.services.findAllMstProvinsiService;
 //import org.json.JSONObject;
 //import org.junit.jupiter.api.Test;

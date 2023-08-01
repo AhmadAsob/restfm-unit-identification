@@ -5,7 +5,7 @@
 //import id.co.astra.fifgroup.project.restfm_unit_identification.dto.resultDataFiduciadto;
 //import id.co.astra.fifgroup.project.restfm_unit_identification.gateway.getFiduciaGateway;
 //import id.co.astra.fifgroup.project.restfm_unit_identification.gateway.getTokenGateway;
-//import id.co.astra.fifgroup.project.restfm_unit_identification.repository.motif_LogRepo;
+//import id.co.astra.fifgroup.project.restfm_unit_identification.repository.FifAppsRepo.motif_LogRepo;
 //import id.co.astra.fifgroup.project.restfm_unit_identification.services.getFiduciaServices;
 //import id.co.astra.fifgroup.project.restfm_unit_identification.servicesImpl.motifLogServiceImpl;
 //import org.json.JSONObject;

@@ -1,7 +1,7 @@
 package id.co.astra.fifgroup.project.restfm_unit_identification.servicesImpl;
 
 import id.co.astra.fifgroup.project.restfm_unit_identification.dto.responseFiduciaObj;
-import id.co.astra.fifgroup.project.restfm_unit_identification.repository.FsMstRegionalRepository;
+import id.co.astra.fifgroup.project.restfm_unit_identification.repository.FifappsRepo.FsMstRegionalRepository;
 import id.co.astra.fifgroup.project.restfm_unit_identification.services.findAllMstRegionalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

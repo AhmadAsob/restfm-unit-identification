@@ -2,7 +2,7 @@
 //
 //import com.fasterxml.jackson.databind.ObjectMapper;
 //import id.co.astra.fifgroup.project.restfm_unit_identification.dto.responseFiduciaObj;
-//import id.co.astra.fifgroup.project.restfm_unit_identification.entity.remTrnMotifBuckets;
+//import id.co.astra.fifgroup.project.restfm_unit_identification.entity.FifAppsEntity.remTrnMotifBuckets;
 //import id.co.astra.fifgroup.project.restfm_unit_identification.services.findAllMotifTrnService;
 //import org.junit.jupiter.api.Test;
 //import org.springframework.beans.factory.annotation.Autowired;

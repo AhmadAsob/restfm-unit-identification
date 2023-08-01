@@ -3,7 +3,7 @@
 //import com.fasterxml.jackson.databind.ObjectMapper;
 //
 //import id.co.astra.fifgroup.project.restfm_unit_identification.dto.responseFiduciaObj;
-//import id.co.astra.fifgroup.project.restfm_unit_identification.entity.mstBapkp;
+//import id.co.astra.fifgroup.project.restfm_unit_identification.entity.FifAppsEntity.mstBapkp;
 //import id.co.astra.fifgroup.project.restfm_unit_identification.services.findAllMstBapkpService;
 //import org.junit.jupiter.api.Test;
 //import org.springframework.beans.factory.annotation.Autowired;

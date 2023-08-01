@@ -16,4 +16,6 @@ public interface insertRemTrnPuService {
     public ResponseEntity changeStatus(String contractNo);
 
     public ResponseEntity getByContractNo(RemTrnMotifPuInsertDto remTrnMotifPuInsertDto);
+
+    public ResponseEntity insertSchedulerPu();
 }

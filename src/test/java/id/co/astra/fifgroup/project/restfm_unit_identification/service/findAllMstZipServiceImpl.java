@@ -2,8 +2,8 @@
 //
 //
 //import id.co.astra.fifgroup.project.restfm_unit_identification.dto.responseFiduciaObj;
-//import id.co.astra.fifgroup.project.restfm_unit_identification.entity.mstZip;
-//import id.co.astra.fifgroup.project.restfm_unit_identification.repository.MstZipRepository;
+//import id.co.astra.fifgroup.project.restfm_unit_identification.entity.FifAppsEntity.mstZip;
+//import id.co.astra.fifgroup.project.restfm_unit_identification.repository.FifAppsRepo.MstZipRepository;
 //import id.co.astra.fifgroup.project.restfm_unit_identification.services.findAllMstZipService;
 //import org.json.JSONObject;
 //import org.junit.jupiter.api.Test;

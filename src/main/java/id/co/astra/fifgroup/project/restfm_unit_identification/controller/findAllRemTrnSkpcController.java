@@ -1,11 +1,8 @@
 package id.co.astra.fifgroup.project.restfm_unit_identification.controller;
 
 import id.co.astra.fifgroup.project.restfm_unit_identification.dto.*;
-import id.co.astra.fifgroup.project.restfm_unit_identification.entity.RemTrnSkpc;
 import id.co.astra.fifgroup.project.restfm_unit_identification.services.findAllRemTrnSkpcService;
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,7 +1,7 @@
 package id.co.astra.fifgroup.project.restfm_unit_identification.servicesImpl;
 
-import id.co.astra.fifgroup.project.restfm_unit_identification.entity.remWsMotifLog;
-import id.co.astra.fifgroup.project.restfm_unit_identification.repository.motif_LogRepo;
+import id.co.astra.fifgroup.project.restfm_unit_identification.entity.FifappsEntity.remWsMotifLog;
+import id.co.astra.fifgroup.project.restfm_unit_identification.repository.FifappsRepo.motif_LogRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

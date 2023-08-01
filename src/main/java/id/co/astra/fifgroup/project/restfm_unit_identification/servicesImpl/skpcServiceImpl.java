@@ -1,12 +1,15 @@
 package id.co.astra.fifgroup.project.restfm_unit_identification.servicesImpl;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import id.co.astra.fifgroup.project.restfm_unit_identification.dto.responseObj;
 import id.co.astra.fifgroup.project.restfm_unit_identification.dto.skpcInputProcedure;
-import id.co.astra.fifgroup.project.restfm_unit_identification.entity.RemTrnSkpc;
-import id.co.astra.fifgroup.project.restfm_unit_identification.entity.RemTrnSkpcId;
-import id.co.astra.fifgroup.project.restfm_unit_identification.repository.ArTrnSumContractRepository;
-import id.co.astra.fifgroup.project.restfm_unit_identification.repository.FsMstSupplierRepository;
-import id.co.astra.fifgroup.project.restfm_unit_identification.repository.RemTrnSKPCRepository;
+import id.co.astra.fifgroup.project.restfm_unit_identification.entity.FifappsEntity.RemTrnSkpc;
+import id.co.astra.fifgroup.project.restfm_unit_identification.entity.FifappsEntity.RemTrnSkpcId;
+import id.co.astra.fifgroup.project.restfm_unit_identification.gateway.RemLogMotifErrGateway;
+import id.co.astra.fifgroup.project.restfm_unit_identification.repository.FifappsRepo.ArTrnSumContractRepository;
+import id.co.astra.fifgroup.project.restfm_unit_identification.repository.FifappsRepo.FsMstSupplierRepository;
+import id.co.astra.fifgroup.project.restfm_unit_identification.repository.FifappsRepo.RemTrnSKPCRepository;
 import id.co.astra.fifgroup.project.restfm_unit_identification.services.skpcService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,6 +32,9 @@ public class skpcServiceImpl implements skpcService {
     @Autowired
     private FsMstSupplierRepository fsMstSupplierRepository;
 
+    @Autowired
+    private RemLogMotifErrGateway remLogMotifErrGateway;
+
     private HttpStatus StatusResponse;
 
     public ResponseEntity skpcService(skpcInputProcedure skpcInputProcedure){
@@ -44,6 +50,7 @@ public class skpcServiceImpl implements skpcService {
             if(coyId.equals(null)){
                 responseObj.setRespHttpCode("400");
                 responseObj.setRespHttpMessage("Coy Id Not Found");
+                remLogMotifErrGateway.insertLogRemLogMotifErr(skpcInputProcedure, convertObjectToJson(responseObj, true), "PROCEDURE_SKPC", "unable to process skpc procedure");
                 StatusResponse = HttpStatus.BAD_REQUEST;
             } else {
                 String palNo = arTrnSumContractRepository.currPalNo(skpcInputProcedure.getContractNo());
@@ -53,6 +60,7 @@ public class skpcServiceImpl implements skpcService {
                 if(suplBranchId.equals(null)){
                     responseObj.setRespHttpCode("400");
                     responseObj.setRespHttpMessage("Branch PC Not Found");
+                    remLogMotifErrGateway.insertLogRemLogMotifErr(skpcInputProcedure, convertObjectToJson(responseObj, true), "PROCEDURE_SKPC", "unable to process skpc procedure");
                     StatusResponse = HttpStatus.BAD_REQUEST;
                 } else {
                     if(dataSkpc.size() == 0){
@@ -90,6 +98,7 @@ public class skpcServiceImpl implements skpcService {
 
                         responseObj.setRespHttpMessage("Sudah ada SKPC active atas No SKP : " + skpcInputProcedure.getSkpcNo());
                         responseObj.setRespHttpCode("400");
+                        remLogMotifErrGateway.insertLogRemLogMotifErr(skpcInputProcedure, convertObjectToJson(responseObj, true), "PROCEDURE_SKPC", "unable to process skpc procedure");
                         StatusResponse = HttpStatus.OK;
 
                     }
@@ -104,6 +113,7 @@ public class skpcServiceImpl implements skpcService {
 
                 responseObj.setRespHttpMessage("Tidak ada SKPC active atas No SKP : " + skpcInputProcedure.getSkpcNo());
                 responseObj.setRespHttpCode("400");
+                remLogMotifErrGateway.insertLogRemLogMotifErr(skpcInputProcedure, convertObjectToJson(responseObj, true), "PROCEDURE_SKPC", "unable to process skpc procedure");
                 StatusResponse = HttpStatus.OK;
 
             } else {
@@ -119,5 +129,14 @@ public class skpcServiceImpl implements skpcService {
         }
 
         return new ResponseEntity(responseObj, StatusResponse);
+    }
+
+    private String convertObjectToJson(Object data, boolean isIncludeNull) {
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        if (isIncludeNull) {
+            gsonBuilder.serializeNulls();
+        }
+        Gson gson = gsonBuilder.create();
+        return gson.toJson(data);
     }
 }

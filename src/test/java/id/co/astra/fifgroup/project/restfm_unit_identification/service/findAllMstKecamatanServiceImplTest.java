@@ -1,8 +1,8 @@
 //package id.co.astra.fifgroup.project.restfm_unit_identification.service;
 //
 //import id.co.astra.fifgroup.project.restfm_unit_identification.dto.responseFiduciaObj;
-//import id.co.astra.fifgroup.project.restfm_unit_identification.entity.mstKecamatan;
-//import id.co.astra.fifgroup.project.restfm_unit_identification.repository.MstKecamatanRepository;
+//import id.co.astra.fifgroup.project.restfm_unit_identification.entity.FifAppsEntity.mstKecamatan;
+//import id.co.astra.fifgroup.project.restfm_unit_identification.repository.FifAppsRepo.MstKecamatanRepository;
 //import id.co.astra.fifgroup.project.restfm_unit_identification.services.findAllMstKecamatanService;
 //import org.json.JSONObject;
 //import org.junit.jupiter.api.Test;

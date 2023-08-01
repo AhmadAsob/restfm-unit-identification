@@ -1,8 +1,8 @@
 //package id.co.astra.fifgroup.project.restfm_unit_identification.controller;
 //
 //import id.co.astra.fifgroup.project.restfm_unit_identification.dto.responseFiduciaObj;
-//import id.co.astra.fifgroup.project.restfm_unit_identification.entity.RemTrnSkpc;
-//import id.co.astra.fifgroup.project.restfm_unit_identification.entity.RemTrnSkpcId;
+//import id.co.astra.fifgroup.project.restfm_unit_identification.entity.FifAppsEntity.RemTrnSkpc;
+//import id.co.astra.fifgroup.project.restfm_unit_identification.entity.FifAppsEntity.RemTrnSkpcId;
 //import id.co.astra.fifgroup.project.restfm_unit_identification.services.findAllRemTrnSkpcService;
 //import org.junit.jupiter.api.Test;
 //import org.springframework.beans.factory.annotation.Autowired;

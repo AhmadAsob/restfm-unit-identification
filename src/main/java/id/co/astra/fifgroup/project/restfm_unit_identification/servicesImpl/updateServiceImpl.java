@@ -1,12 +1,15 @@
 package id.co.astra.fifgroup.project.restfm_unit_identification.servicesImpl;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import id.co.astra.fifgroup.project.restfm_unit_identification.dto.InsertDto;
 import id.co.astra.fifgroup.project.restfm_unit_identification.dto.responseObj;
-import id.co.astra.fifgroup.project.restfm_unit_identification.entity.*;
-import id.co.astra.fifgroup.project.restfm_unit_identification.repository.FsMstPersonalDatumRepository;
-import id.co.astra.fifgroup.project.restfm_unit_identification.repository.FsMstSupplierAcctRepository;
-import id.co.astra.fifgroup.project.restfm_unit_identification.repository.FsMstSupplierDcRepository;
-import id.co.astra.fifgroup.project.restfm_unit_identification.repository.FsMstSupplierRepository;
+import id.co.astra.fifgroup.project.restfm_unit_identification.entity.FifappsEntity.*;
+import id.co.astra.fifgroup.project.restfm_unit_identification.gateway.RemLogMotifErrGateway;
+import id.co.astra.fifgroup.project.restfm_unit_identification.repository.FifappsRepo.FsMstPersonalDatumRepository;
+import id.co.astra.fifgroup.project.restfm_unit_identification.repository.FifappsRepo.FsMstSupplierAcctRepository;
+import id.co.astra.fifgroup.project.restfm_unit_identification.repository.FifappsRepo.FsMstSupplierDcRepository;
+import id.co.astra.fifgroup.project.restfm_unit_identification.repository.FifappsRepo.FsMstSupplierRepository;
 import id.co.astra.fifgroup.project.restfm_unit_identification.services.updateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,6 +35,10 @@ public class updateServiceImpl implements updateService {
     @Autowired
     private FsMstPersonalDatumRepository datumRepository;
 
+    @Autowired
+    private RemLogMotifErrGateway remLogMotifErrGateway;
+
+
     private HttpStatus StatusResponse;
 
     public ResponseEntity update(String suplCode, InsertDto insertDto) {
@@ -52,7 +59,10 @@ public class updateServiceImpl implements updateService {
 
         FsMstSupplierDc fsMstSupplierDc = dcRepository.getPersonalId(suplCode);
 
-        FsMstPersonalDatum fsMstPersonalDatum = datumRepository.getById(suplCode);
+        String personalId = dcRepository.getPersonalId2(suplCode);
+        System.out.println("personalId = " + personalId);
+
+        FsMstPersonalDatum fsMstPersonalDatum = datumRepository.getById(personalId);
 
         responseObj responseObj = new responseObj();
 
@@ -83,12 +93,13 @@ public class updateServiceImpl implements updateService {
                 } else {
                     fsMstSupplier.setSuplCity(fsMstSupplier.getSuplCity());
                 }
+                if ( insertDto.getSuplProvince() != null ){
                 if (insertDto.getSuplProvince().length() > 20 || insertDto.getSuplProvince() != null){
                     fsMstSupplier.setSuplProvince(insertDto.getSuplProvince().substring(0, Math.min(insertDto.getSuplProvince().length(), 20)));
                 }
                 else if (insertDto.getSuplProvince().length() <= 20 || insertDto.getSuplProvince() != null){
                     fsMstSupplier.setSuplProvince(insertDto.getSuplProvince());
-                }
+                }}
                 else {
                     fsMstSupplier.setSuplProvince(fsMstSupplier.getSuplProvince());
                 }
@@ -102,7 +113,6 @@ public class updateServiceImpl implements updateService {
                 } else {
                     fsMstSupplier.setSuplTelp1(fsMstSupplier.getSuplTelp1());
                 }
-                fsMstSupplier.setSuplTelp2("");
                 if (insertDto.getSuplFax() != null){
                     fsMstSupplier.setSuplFax(insertDto.getSuplFax());
                 } else {
@@ -113,15 +123,11 @@ public class updateServiceImpl implements updateService {
                 } else {
                     fsMstSupplier.setSuplEmail(fsMstSupplier.getSuplEmail());
                 }
-                fsMstSupplier.setSuplPic("");
                 if (insertDto.getSuplNpwp() != null){
                     fsMstSupplier.setSuplNpwp(insertDto.getSuplNpwp());
                 } else {
                     fsMstSupplier.setSuplNpwp(fsMstSupplier.getSuplNpwp());
                 }
-                fsMstSupplier.setSuplTglPkp(null);
-                fsMstSupplier.setSuplTaxCode("");
-                fsMstSupplier.setSuplTermPayment(null);
                 if (insertDto.getSuplUserApproved() != null){
                     fsMstSupplier.setSuplUserApproved(insertDto.getSuplUserApproved());
                 } else {
@@ -132,7 +138,6 @@ public class updateServiceImpl implements updateService {
                 }else{
                     fsMstSupplier.setSuplDateApproved(null);
                 }
-
                 if(insertDto.getSuplStatus() != null || insertDto.getSuplStatus() == ""){
                     fsMstSupplier.setSuplStatus(insertDto.getSuplStatus());
                 }else{
@@ -154,11 +159,7 @@ public class updateServiceImpl implements updateService {
                 }else{
                     fsMstSupplier.setSuplCreatedDate(null);
                 }
-                fsMstSupplier.setSuplModifiedBy("");
                 fsMstSupplier.setSuplGroupId("000");
-                fsMstSupplier.setCreatedBy("");
-                fsMstSupplier.setLastupdateBy("");
-                fsMstSupplier.setSuplOutletType("");
                 if (insertDto.getSuplCompType() != null){
                     fsMstSupplier.setSuplCompType(insertDto.getSuplCompType());
                 } else {
@@ -179,54 +180,7 @@ public class updateServiceImpl implements updateService {
                 } else {
                     fsMstSupplier.setSuplNpwpAddress(fsMstSupplier.getSuplNpwpAddress());
                 }
-                fsMstSupplier.setSuplAuthorize("");
-                fsMstSupplier.setSuplRegionalId("");
-                fsMstSupplier.setSuplMaindealerId("");
-                fsMstSupplier.setSuplCompName("");
-                fsMstSupplier.setSuplPersonalIdOwner("");
-                fsMstSupplier.setSuplPersonalIdPic("");
-                fsMstSupplier.setSuplDecisionMakerDesc("");
-                fsMstSupplier.setSuplDecisionMakerRelation("TEST");
-                fsMstSupplier.setSuplDecisionMaker("OWN");
-                fsMstSupplier.setSuplNpwpOld("");
-                fsMstSupplier.setSuplNpwpNameOld("");
-                fsMstSupplier.setSuplNpwpAddressOld("");
-                fsMstSupplier.setSuplNpwp2("");
-                fsMstSupplier.setSuplNpwpName2("");
-                fsMstSupplier.setSuplNpwpAddress2("");
-                fsMstSupplier.setSuplNpwpOld2("");
-                fsMstSupplier.setSuplNpwpNameOld2("");
-                fsMstSupplier.setSuplNpwpAddressOld2("");
-                fsMstSupplier.setSuplTaxCode2("");
-                fsMstSupplier.setSuplNpwp3("");
-                fsMstSupplier.setSuplNpwpName3("");
-                fsMstSupplier.setSuplNpwpAddress3("");
-                fsMstSupplier.setSuplNpwpOld3("");
-                fsMstSupplier.setSuplNpwpNameOld3("");
-                fsMstSupplier.setSuplNpwpAddressOld3("");
-                fsMstSupplier.setSuplTaxCode3("");
-                fsMstSupplier.setSuplNpwpAddress1("");
-                fsMstSupplier.setSuplCodeParent("");
-                fsMstSupplier.setSuplCodeSpouse("");
-                fsMstSupplier.setSuplNickName("");
-                fsMstSupplier.setSuplReligion("");
-                fsMstSupplier.setSuplReligion("");
-                fsMstSupplier.setSuplSex("");
-                fsMstSupplier.setSuplRace("");
-                fsMstSupplier.setSuplMaritalSts("");
-                fsMstSupplier.setSuplFavoriteColor("");
-                fsMstSupplier.setSuplClothesSize("");
-                fsMstSupplier.setSuplMobilephone("");
-                fsMstSupplier.setSuplMobilephone2("");
-                fsMstSupplier.setSuplOtherBusiness1("");
-                fsMstSupplier.setSuplOtherBusiness2("");
-                fsMstSupplier.setSuplOtherBusiness3("");
-                fsMstSupplier.setSuplSpecialInfo("");
-                fsMstSupplier.setSuplSegmentDealer("");
                 fsMstSupplier.setCoyId("01");
-                fsMstSupplier.setVendorId("");
-                fsMstSupplier.setHsoSuplId("");
-                fsMstSupplier.setSuplJamsostekId("");
                 if (insertDto.getSuplKecamatan() != null){
                     fsMstSupplier.setSuplKecamatan(insertDto.getSuplKecamatan());
                 } else {
@@ -237,62 +191,37 @@ public class updateServiceImpl implements updateService {
                 } else {
                     fsMstSupplier.setSuplKelurahan(fsMstSupplier.getSuplKelurahan());
                 }
-                fsMstSupplier.setSuplCsFifExist("");
-                fsMstSupplier.setSuplTypeOfBuss("");
-                fsMstSupplier.setSuplVisi("");
-                fsMstSupplier.setSuplMisi("");
-                fsMstSupplier.setSuplHrdMgr("");
-                fsMstSupplier.setSuplFinMgr("");
-                fsMstSupplier.setSuplMktMgr("");
-                fsMstSupplier.setSuplCooperation("");
-                fsMstSupplier.setSuplMainCompetitor("");
-                fsMstSupplier.setSuplValues("");
-                fsMstSupplier.setStoreType("");
-                fsMstSupplier.setSuplPpn("");
-                fsMstSupplier.setActiveMail("");
                 if (insertDto.getPersonalIdIndentifikasi() != null){
                     fsMstSupplier.setSuplNik(insertDto.getPersonalIdIndentifikasi());
                 } else {
                     fsMstSupplier.setSuplNik(fsMstSupplier.getSuplNik());
                 }
-                fsMstSupplier.setSuplNikName("");
-                fsMstSupplier.setSuplMobilephone3("");
-                fsMstSupplier.setSuplFpType("");
                 if (insertDto.getSuplPkp() != null){
                     fsMstSupplier.setSuplPkp(insertDto.getSuplPkp());
                 } else {
                     fsMstSupplier.setSuplPkp(fsMstSupplier.getSuplPkp());
                 }
-                fsMstSupplier.setSuplFlagIc("");
-                fsMstSupplier.setSuplFlagNpwp("");
-                fsMstSupplier.setSuplFlagIc2("");
-                fsMstSupplier.setSuplFlagNpwp2("");
-                fsMstSupplier.setSuplFlagIc3("");
-                fsMstSupplier.setSuplFlagNpwp3("");
-                fsMstSupplier.setPcIdReff("");
                 if (insertDto.getPcSubType() != null || insertDto.getPcSubType() == ""){
                     fsMstSupplier.setPcSubType(Long.parseLong(insertDto.getPcSubType()));
                 }else{
-                    fsMstSupplier.setPcSubType(null);
+                    fsMstSupplier.setPcSubType(fsMstSupplier.getPcSubType());
                 }
                 fsMstSupplier.setSuplNonPph(insertDto.getSuplNonPph());
                 if (insertDto.getSuplNonPphStartdate() != null || insertDto.getSuplNonPphStartdate() == ""){
                     fsMstSupplier.setSuplNonPphStartdate(LocalDate.parse(insertDto.getSuplNonPphStartdate(),formatter));
                 }else{
-                    fsMstSupplier.setSuplNonPphStartdate(null);
+                    fsMstSupplier.setSuplNonPphStartdate(fsMstSupplier.getSuplNonPphStartdate());
                 }
                 if (insertDto.getSuplNonPphEnddate() != null || insertDto.getSuplNonPphEnddate() == ""){
                     fsMstSupplier.setSuplNonPphEnddate(LocalDate.parse(insertDto.getSuplNonPphEnddate(),formatter));
                 }else{
-                    fsMstSupplier.setSuplNonPphEnddate(null);
+                    fsMstSupplier.setSuplNonPphEnddate(fsMstSupplier.getSuplNonPphEnddate());
                 }
                 if (insertDto.getSuplNonPphDocno() != null ){
                     fsMstSupplier.setSuplNonPphDocno(insertDto.getSuplNonPphDocno());
                 }else{
                     fsMstSupplier.setSuplNonPphDocno(fsMstSupplier.getSuplNonPphDocno());
                 }
-                fsMstSupplier.setFasilitasEdis("");
-                fsMstSupplier.setTypeAgen("");
                 if (insertDto.getSuplSiup() != null){
                     fsMstSupplier.setSuplSiup(insertDto.getSuplSiup());
                 }else{
@@ -329,13 +258,11 @@ public class updateServiceImpl implements updateService {
                 }else{
                     fsMstSupplierAcct.setSuplAccountName(fsMstSupplierAcct.getSuplAccountName());
                 }
-                fsMstSupplierAcct.setSuplAccountDesc("");
                 if (insertDto.getSuplAccStatus() != null){
                     fsMstSupplierAcct.setSuplAccStatus(insertDto.getSuplAccStatus());
-                }else{
+                } else {
                     fsMstSupplierAcct.setSuplAccStatus(fsMstSupplierAcct.getSuplAccStatus());
                 }
-                fsMstSupplierAcct.setSuplAccType("");
                 fsMstSupplierAcct.setSuplAccCurr("IDR");
                 if (insertDto.getSuplCreatedBy() != null){
                     fsMstSupplierAcct.setSuplCreatedBy(insertDto.getSuplCreatedBy());
@@ -347,11 +274,6 @@ public class updateServiceImpl implements updateService {
                 }else{
                     fsMstSupplierAcct.setSuplCreatedDate(fsMstSupplierAcct.getSuplCreatedDate());
                 }
-                fsMstSupplierAcct.setSuplModifiedBy("");
-                fsMstSupplierAcct.setSuplModifiedDate(null);
-                fsMstSupplierAcct.setSuplApprovedBy("");
-                fsMstSupplierAcct.setSuplApprovedDate(null);
-                fsMstSupplierAcct.setSuplDefaultBankAcct("");
                 if (insertDto.getSuplCreatedBy() != null){
                     fsMstSupplierAcct.setCreatedBy(insertDto.getSuplCreatedBy());
                 }else{
@@ -362,19 +284,12 @@ public class updateServiceImpl implements updateService {
                 }else{
                     fsMstSupplierAcct.setCreatedTimestamp(fsMstSupplierAcct.getCreatedTimestamp());
                 }
-                fsMstSupplierAcct.setLastupdateBy("");
-                fsMstSupplierAcct.setLastupdateTimestamp(null);
-                fsMstSupplierAcct.setSuplMainBankAcct("");
-
-
-
                 if (insertDto.getPersonalId() != null){
                     fsMstSupplierDc.setPersonalId(insertDto.getPersonalId());
                     fsMstSupplierDc.setSuplCode(suplCode);
                 } else {
                     fsMstSupplierDc.setPersonalId(fsMstSupplierDc.getPersonalId());
                 }
-                fsMstSupplierDc.setReference("");
                 if (insertDto.getSuplCreatedBy() != null){
                     fsMstSupplierDc.setCreatedBy(insertDto.getSuplCreatedBy());
                 }else{
@@ -388,13 +303,16 @@ public class updateServiceImpl implements updateService {
                 fsMstSupplierDc.setModifiedBy("MOTIF");
                 fsMstSupplierDc.setModifiedDate(LocalDate.now());
 
-
+                if(insertDto.getPersonalId() != null){
+                    fsMstPersonalDatum.setId(insertDto.getPersonalId());
+                }else{
+                    fsMstPersonalDatum.setId(fsMstPersonalDatum.getId());
+                }
                 if(insertDto.getPersonalFullName() != null){
                     fsMstPersonalDatum.setPersonalFullName(insertDto.getPersonalFullName());
                 }else{
                     fsMstPersonalDatum.setPersonalFullName(fsMstPersonalDatum.getPersonalFullName());
                 }
-                fsMstPersonalDatum.setPersonalNickName("");
                 if (insertDto.getPersonalBirtPlace() != null){
                     fsMstPersonalDatum.setPersonalBirtPlace(insertDto.getPersonalBirtPlace());
                 }else{
@@ -405,14 +323,14 @@ public class updateServiceImpl implements updateService {
                 }else{
                     fsMstPersonalDatum.setPersonalBirtDate(fsMstPersonalDatum.getPersonalBirtDate());
                 }
-                if (insertDto.getPersonalAddr1() != null){
-                    fsMstPersonalDatum.setPersonalAddr1(insertDto.getPersonalAddr1());
+                System.out.println("pesonalIdAddr1" + insertDto.getPersonalIdAddr1());
+                if (insertDto.getPersonalIdAddr1() != null){
+                    fsMstPersonalDatum.setPersonalAddr1(insertDto.getPersonalIdAddr1());
                 }else{
                     fsMstPersonalDatum.setPersonalAddr1(fsMstPersonalDatum.getPersonalAddr1());
                 }
-                fsMstPersonalDatum.setPersonalAddr2("");
-                if (insertDto.getPersonalCity() != null){
-                    fsMstPersonalDatum.setPersonalCity(insertDto.getPersonalCity());
+                if (insertDto.getPersonalIdCity() != null){
+                    fsMstPersonalDatum.setPersonalCity(insertDto.getPersonalIdCity());
                 }else{
                     fsMstPersonalDatum.setPersonalCity(fsMstPersonalDatum.getPersonalCity());
                 }
@@ -431,59 +349,21 @@ public class updateServiceImpl implements updateService {
                 }else{
                     fsMstPersonalDatum.setPersonalSex(fsMstPersonalDatum.getPersonalSex());
                 }
-                fsMstPersonalDatum.setPersonalRace("");
                 if (insertDto.getPersonalMaritalSts() != null){
                     fsMstPersonalDatum.setPersonalMaritalSts(insertDto.getPersonalMaritalSts());
                 }else{
                     fsMstPersonalDatum.setPersonalMaritalSts(fsMstPersonalDatum.getPersonalMaritalSts());
                 }
-                fsMstPersonalDatum.setPersonalMaritalDate(null);
-                fsMstPersonalDatum.setPersonalNoOfDependent(null);
-                fsMstPersonalDatum.setPersonalFavoriteColor("");
-                fsMstPersonalDatum.setPersonalClothesSize("");
-                fsMstPersonalDatum.setPersonalPhone1("");
-                fsMstPersonalDatum.setPersonalPhone2("");
-                fsMstPersonalDatum.setPersonalFax("");
                 if (insertDto.getPersonalMobilephone() != null){
                     fsMstPersonalDatum.setPersonalMobilephone(insertDto.getPersonalMobilephone());
                 }else{
                     fsMstPersonalDatum.setPersonalMobilephone(fsMstPersonalDatum.getPersonalMobilephone());
                 }
-                fsMstPersonalDatum.setPersonalMobilephone2("");
                 if (insertDto.getPersonalEmail() != null){
                     fsMstPersonalDatum.setPersonalEmail(insertDto.getPersonalEmail());
                 }else{
                     fsMstPersonalDatum.setPersonalEmail(fsMstPersonalDatum.getPersonalEmail());
                 }
-                fsMstPersonalDatum.setPersonalOtherBusiness1("");
-                fsMstPersonalDatum.setPersonalOtherBusiness2("");
-                fsMstPersonalDatum.setPersonalOtherBusiness3("");
-                fsMstPersonalDatum.setPersonalSpecialInfo("");
-                fsMstPersonalDatum.setPersonalHobbyMembaca("");
-                fsMstPersonalDatum.setPersonalHobbyBelanja("");
-                fsMstPersonalDatum.setPersonalHobbySeni("");
-                fsMstPersonalDatum.setPersonalHobbySeniDesc("");
-                fsMstPersonalDatum.setPersonalHobbyMemancing("");
-                fsMstPersonalDatum.setPersonalHobbyTraveling("");
-                fsMstPersonalDatum.setPersonalHobbyKoleksi("");
-                fsMstPersonalDatum.setPersonalHobbyKoleksiDesc("");
-                fsMstPersonalDatum.setPersonalHobbyMusik("");
-                fsMstPersonalDatum.setPersonalHobbyOlahraga("");
-                fsMstPersonalDatum.setPersonalHobbyOlahragaDesc("");
-                fsMstPersonalDatum.setPersonalHobbyOtoMtr("");
-                fsMstPersonalDatum.setPersonalHobbyOtoMbl("");
-                fsMstPersonalDatum.setPersonalHobbyMenyelam("");
-                fsMstPersonalDatum.setPersonalHobbyPecintaAlam("");
-                fsMstPersonalDatum.setPersonalHobbyPiaraBntg("");
-                fsMstPersonalDatum.setPersonalHobbyPiaraBntgDesc("");
-                fsMstPersonalDatum.setPersonalHobbyOthers("");
-                fsMstPersonalDatum.setPersonalHobbyOthersDesc("");
-                fsMstPersonalDatum.setPersonalOtherOwner("");
-                fsMstPersonalDatum.setPersonalIdSpouse("");
-                fsMstPersonalDatum.setPersonalIdParent("");
-                fsMstPersonalDatum.setPersonalSuplFlag("");
-                fsMstPersonalDatum.setPersonalCreatedBy("");
-                fsMstPersonalDatum.setPersonalCreatedDate(null);
                 if (insertDto.getSuplCreatedBy() != null){
                     fsMstPersonalDatum.setPersonalModifiedBy(insertDto.getSuplCreatedBy());
                 }else{
@@ -494,16 +374,11 @@ public class updateServiceImpl implements updateService {
                 }else{
                     fsMstPersonalDatum.setPersonalModifiedDate(fsMstPersonalDatum.getPersonalModifiedDate());
                 }
-                fsMstPersonalDatum.setPersonalIdAddr1("");
-                fsMstPersonalDatum.setPersonalIdAddr2("");
                 if (insertDto.getLastEducationLvl() != null){
                     fsMstPersonalDatum.setLastEducationLvl(insertDto.getLastEducationLvl());
                 }else{
                     fsMstPersonalDatum.setLastEducationLvl(fsMstPersonalDatum.getLastEducationLvl());
                 }
-                fsMstPersonalDatum.setPersonalIdEmcCall("");
-                fsMstPersonalDatum.setPersonalIdCity("");
-                fsMstPersonalDatum.setPersonalIdZipcode("");
                 if (insertDto.getPersonalIdEmcName() != null){
                     fsMstPersonalDatum.setPersonalIdEmcName(insertDto.getPersonalIdEmcName());
                 }else{
@@ -519,35 +394,27 @@ public class updateServiceImpl implements updateService {
                 }else{
                     fsMstPersonalDatum.setPersonalIdEmcPhone(fsMstPersonalDatum.getPersonalIdEmcPhone());
                 }
-                fsMstPersonalDatum.setPersonalIdEmcAddr2("");
                 if (insertDto.getPersonalIdIndentifikasi() != null){
                     fsMstPersonalDatum.setPersonalIdIndentifikasi(insertDto.getPersonalIdIndentifikasi());
                 }else{
                     fsMstPersonalDatum.setPersonalIdIndentifikasi(fsMstPersonalDatum.getPersonalIdIndentifikasi());
                 }
-                if (insertDto.getSuplKecamatan() != null){
-                    fsMstPersonalDatum.setPersonalKecamatan(insertDto.getSuplKecamatan());
+                if (insertDto.getPersonalIdKecamatan() != null){
+                    fsMstPersonalDatum.setPersonalKecamatan(insertDto.getPersonalIdKecamatan());
                 }else{
                     fsMstPersonalDatum.setPersonalKecamatan(fsMstPersonalDatum.getPersonalKecamatan());
                 }
-                if (insertDto.getSuplKelurahan() != null){
-                    fsMstPersonalDatum.setPersonalKelurahan(insertDto.getSuplKelurahan());
+                if (insertDto.getPersonalIdKelurahan() != null){
+                    fsMstPersonalDatum.setPersonalKelurahan(insertDto.getPersonalIdKelurahan());
                 }else{
                     fsMstPersonalDatum.setPersonalKelurahan(fsMstPersonalDatum.getPersonalKelurahan());
                 }
-                fsMstPersonalDatum.setPersonalType("");
-                if (insertDto.getPersonalRtRw() != null){
-                    fsMstPersonalDatum.setPersonalRtrw(insertDto.getPersonalRtRw());
+                if (insertDto.getPersonalIdRtRw() != null){
+                    fsMstPersonalDatum.setPersonalRtrw(insertDto.getPersonalIdRtRw());
                 }else{
                     fsMstPersonalDatum.setPersonalRtrw(fsMstPersonalDatum.getPersonalRtrw());
                 }
                 fsMstPersonalDatum.setPersonalStatus("AC");
-                fsMstPersonalDatum.setPersonalJoinDate(null);
-                fsMstPersonalDatum.setPersonalPosition("");
-                fsMstPersonalDatum.setPersonalHubDgnPemilik("");
-                fsMstPersonalDatum.setPersonalIdType("");
-                fsMstPersonalDatum.setPersonalLamaBekerja(null);
-                fsMstPersonalDatum.setPersonalDmsAddr2("");
                 if (insertDto.getPersonalAddr1() != null){
                     fsMstPersonalDatum.setPersonalDmsAddr1(insertDto.getPersonalAddr1());
                 }else{
@@ -601,14 +468,25 @@ public class updateServiceImpl implements updateService {
             } else {
                 responseObj.setRespHttpCode("400");
                 responseObj.setRespHttpMessage("Supl Code not found");
+                remLogMotifErrGateway.insertLogRemLogMotifErr(insertDto, convertObjectToJson(responseObj, true), "UPDATE_PC_REGISTRATION", "Can't update to table");
                 StatusResponse = HttpStatus.BAD_REQUEST;
             }
         } catch (Exception e){
             responseObj.setRespHttpCode("400");
             responseObj.setRespHttpMessage(e.getMessage());
+            remLogMotifErrGateway.insertLogRemLogMotifErr(insertDto, convertObjectToJson(responseObj, true), "UPDATE_PC_REGISTRATION", "Can't update to table");
             StatusResponse = HttpStatus.BAD_REQUEST;
         }
 
         return new ResponseEntity(responseObj, StatusResponse);
     }
-}
+
+
+    private String convertObjectToJson(Object data, boolean isIncludeNull) {
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        if (isIncludeNull) {
+            gsonBuilder.serializeNulls();
+        }
+        Gson gson = gsonBuilder.create();
+        return gson.toJson(data);
+    }}

@@ -1,7 +1,10 @@
 package id.co.astra.fifgroup.project.restfm_unit_identification.servicesImpl;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import id.co.astra.fifgroup.project.restfm_unit_identification.dto.responseObj;
 import id.co.astra.fifgroup.project.restfm_unit_identification.dto.sendEmaildto;
+import id.co.astra.fifgroup.project.restfm_unit_identification.gateway.RemLogMotifErrGateway;
 import id.co.astra.fifgroup.project.restfm_unit_identification.gateway.sendEmailGateway;
 import id.co.astra.fifgroup.project.restfm_unit_identification.services.sendEmailServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +53,9 @@ public class sendEmailServicesImpl implements sendEmailServices {
     @Autowired
     public sendEmailGateway gateway;
 
+    @Autowired
+    private RemLogMotifErrGateway remLogMotifErrGateway;
+
     @Override
     public ResponseEntity sendEmail(sendEmaildto dataEmail) {
 
@@ -59,26 +65,32 @@ public class sendEmailServicesImpl implements sendEmailServices {
         if(dataEmail.getSubject().isEmpty()){
             responseObj.setRespHttpMessage("Email Subject can't be null!");
             responseObj.setRespHttpCode("400");
+            remLogMotifErrGateway.insertLogRemLogMotifErr(dataEmail, convertObjectToJson(responseObj, true), "POST_EMAIL", "Can't send Email");
             StatusResponse = HttpStatus.BAD_REQUEST;
         }else if(dataEmail.getTo().length == 0){
             responseObj.setRespHttpMessage("To can't be null!");
             responseObj.setRespHttpCode("400");
+            remLogMotifErrGateway.insertLogRemLogMotifErr(dataEmail, convertObjectToJson(responseObj, true), "POST_EMAIL", "Can't send Email");
             StatusResponse = HttpStatus.BAD_REQUEST;
         }else if(dataEmail.getEmailBody().isEmpty()){
             responseObj.setRespHttpMessage("Email Body can't be null!");
             responseObj.setRespHttpCode("400");
+            remLogMotifErrGateway.insertLogRemLogMotifErr(dataEmail, convertObjectToJson(responseObj, true), "POST_EMAIL", "Can't send Email");
             StatusResponse = HttpStatus.BAD_REQUEST;
         }else if(dataEmail.getRequestBy().isEmpty()){
             responseObj.setRespHttpMessage("Request By can't be null!");
             responseObj.setRespHttpCode("400");
+            remLogMotifErrGateway.insertLogRemLogMotifErr(dataEmail, convertObjectToJson(responseObj, true), "POST_EMAIL", "Can't send Email");
             StatusResponse = HttpStatus.BAD_REQUEST;
         }else if(dataEmail.getAttachName() == null && dataEmail.getAttachName() != null ){
             responseObj.setRespHttpMessage("AttachName or AttachBytes can't be null!");
             responseObj.setRespHttpCode("400");
+            remLogMotifErrGateway.insertLogRemLogMotifErr(dataEmail, convertObjectToJson(responseObj, true), "POST_EMAIL", "Can't send Email");
             StatusResponse = HttpStatus.BAD_REQUEST;
         } else if(dataEmail.getAttachName() != null && dataEmail.getAttachName() == null) {
             responseObj.setRespHttpMessage("AttachName or AttachBytes can't be null!");
             responseObj.setRespHttpCode("400");
+            remLogMotifErrGateway.insertLogRemLogMotifErr(dataEmail, convertObjectToJson(responseObj, true), "POST_EMAIL", "Can't send Email");
             StatusResponse = HttpStatus.BAD_REQUEST;
         } else {
             try{
@@ -124,6 +136,16 @@ public class sendEmailServicesImpl implements sendEmailServices {
             File tempData = new File(dataFile.getOriginalFilename());
             tempData.delete();
         }
+    }
+
+
+    private String convertObjectToJson(Object data, boolean isIncludeNull) {
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        if (isIncludeNull) {
+            gsonBuilder.serializeNulls();
+        }
+        Gson gson = gsonBuilder.create();
+        return gson.toJson(data);
     }
 
 

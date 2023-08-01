@@ -2,8 +2,8 @@
 //
 //import com.sun.org.apache.regexp.internal.RE;
 //import id.co.astra.fifgroup.project.restfm_unit_identification.dto.responseFiduciaObj;
-//import id.co.astra.fifgroup.project.restfm_unit_identification.entity.mstMouHdrs;
-//import id.co.astra.fifgroup.project.restfm_unit_identification.repository.MstMouHdrsRepository;
+//import id.co.astra.fifgroup.project.restfm_unit_identification.entity.FifAppsEntity.mstMouHdrs;
+//import id.co.astra.fifgroup.project.restfm_unit_identification.repository.FifAppsRepo.MstMouHdrsRepository;
 //import id.co.astra.fifgroup.project.restfm_unit_identification.services.findAllMstMouHdrsService;
 //import org.apache.tomcat.jni.Local;
 //import org.json.JSONObject;

@@ -1,11 +1,13 @@
 package id.co.astra.fifgroup.project.restfm_unit_identification.servicesImpl;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import id.co.astra.fifgroup.project.restfm_unit_identification.dto.MouDto;
 import id.co.astra.fifgroup.project.restfm_unit_identification.dto.responseObj;
-import id.co.astra.fifgroup.project.restfm_unit_identification.entity.RiTrnMouHdr;
-import id.co.astra.fifgroup.project.restfm_unit_identification.repository.RiTrnMouHdrRepository;
+import id.co.astra.fifgroup.project.restfm_unit_identification.entity.FifappsEntity.RiTrnMouHdr;
+import id.co.astra.fifgroup.project.restfm_unit_identification.gateway.RemLogMotifErrGateway;
+import id.co.astra.fifgroup.project.restfm_unit_identification.repository.FifappsRepo.RiTrnMouHdrRepository;
 import id.co.astra.fifgroup.project.restfm_unit_identification.services.updateMouRegistrationService;
-import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +21,9 @@ public class updateMouRegistrationServiceImpl implements updateMouRegistrationSe
 
     @Autowired
     private RiTrnMouHdrRepository riTrnMouHdrRepository;
+
+    @Autowired
+    private RemLogMotifErrGateway remLogMotifErrGateway;
 
     private HttpStatus StatusResponse;
 
@@ -40,6 +45,7 @@ public class updateMouRegistrationServiceImpl implements updateMouRegistrationSe
                 if (riTrnMouHdr1.getStatus() == null || riTrnMouHdr1.getStatus().equals("")) {
                     responseObj.setRespHttpCode("400");
                     responseObj.setRespHttpMessage("Supl Code can't null");
+                    remLogMotifErrGateway.insertLogRemLogMotifErr(riTrnMouHdr, convertObjectToJson(responseObj, true), "UPDATE_MOU_REGISTRATION", "Can't update to table RI_TRN_MOU_HDRS");
                     StatusResponse = HttpStatus.BAD_REQUEST;
                 }
                 riTrnMouHdr1.setSuplCode(riTrnMouHdr.getSuplCode());
@@ -52,14 +58,24 @@ public class updateMouRegistrationServiceImpl implements updateMouRegistrationSe
             } else {
                 responseObj.setRespHttpCode("400");
                 responseObj.setRespHttpMessage("Mou Id not found");
+                remLogMotifErrGateway.insertLogRemLogMotifErr(riTrnMouHdr, convertObjectToJson(responseObj, true), "UPDATE_MOU_REGISTRATION", "Can't update to table RI_TRN_MOU_HDRS");
                 StatusResponse = HttpStatus.BAD_REQUEST;
             }
         } catch (Exception e) {
             responseObj.setRespHttpCode("400");
             responseObj.setRespHttpMessage(e.getMessage());
+            remLogMotifErrGateway.insertLogRemLogMotifErr(riTrnMouHdr, convertObjectToJson(responseObj, true), "UPDATE_MOU_REGISTRATION", "Can't update to table RI_TRN_MOU_HDRS");
             StatusResponse = HttpStatus.BAD_REQUEST;
         }
         return new ResponseEntity(responseObj, StatusResponse);
     }
 
+    private String convertObjectToJson(Object data, boolean isIncludeNull) {
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        if (isIncludeNull) {
+            gsonBuilder.serializeNulls();
+        }
+        Gson gson = gsonBuilder.create();
+        return gson.toJson(data);
+    }
 }
